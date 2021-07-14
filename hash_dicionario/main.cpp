@@ -35,8 +35,7 @@ int main() {
                 break;
              case 4: //Calcula a porcentagem de ocupacao da tabela
                 {
-                    float p100=porcentagemHash(&hashes);
-                    printf("\nPorcentagem >>> %.f porcento",p100);
+                    porcentagemHash(&hashes);
                 }
                 break;
              case 5:
