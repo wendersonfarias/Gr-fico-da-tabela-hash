@@ -2,13 +2,13 @@
 #define HASH_H_INCLUDED
 
 #include "DoublyLinkedList.h"
-#define MAX 3025 // tabela 32 x 32
+#define MAX 3025 // tabela 55 x 55
 
-//OperaÁıes
-//isHashEmpty: verifica se a tabela de hash est· vazia;
+//Opera√ß√µes
+//isHashEmpty: verifica se a tabela de hash est√° vazia;
 //hash: calcula o hash para a chave;
 //put: insere um par (chave,valor);
-//containsKey: verifica se a chave j· existe na tabela de hash;
+//containsKey: verifica se a chave j√° existe na tabela de hash;
 //get: retorna o valor buscando pela chave;
 //removeKey: remove um par (chave,valor);
 //showHashStruct: exibe os pares armazenados
@@ -35,6 +35,6 @@ void mapaColisoes(HashStruct *hashStruct, printNode print);
 void carregaArquivo(HashStruct *hashStruct,Palavra *t_palavra);
 bool comparaChaves(void *key, void *data);
 void printPalavra(void *data);
-float porcentagemHash(void *data);
+void porcentagemHash(HashStruct *hashStruct);
 
 #endif // HASH_H_INCLUDED
