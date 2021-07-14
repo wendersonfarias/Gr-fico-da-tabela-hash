@@ -27,10 +27,10 @@ int hash(char *key) {
          //acumulamos os códigos ascii de cada letra com um peso
         sum+=key[i]*(i+1);
     }
-    return sum%MAX; /* ///retorna o resto da divisão
+    return sum%MAX;  //retorna o resto da divisão
 
 
-        int total = 0;                            //segunda funcao hash
+    /*    int total = 0;                            //segunda funcao hash
     for (int i=0; key[i]!='\0'; i++)
        total += key[i]*(i+5);
 
@@ -127,8 +127,8 @@ void printPalavra(void *data) {
     printf("{%s} - ", palavra->texto);
 }
 
-void porcentagemHash(HashStruct *hashStruct){
-        float contador = 0.0;
+void porcentagemHash(HashStruct *hashStruct){   // CADA VEZ QUE TIVER UMA POSICAO OCUPADA, DAI INCREMENTA O CONTADOR.
+        float contador = 0.0;			//ELA CONTA OS ESPACOS OCUPADOS E USA O TAMANHO DA TABELA E FAZ A PORCENTAGEM.
         for (int i=0; i < MAX; i++) {
             if(hashStruct->hashes[i].size > 1){
                 contador += 1;
@@ -155,7 +155,7 @@ void mapaColisoes(HashStruct *hashStruct, printNode print){
     //estrutura de repetição com o intuito de navegar entre as hashes e mostrar quantos elementos cada hash tem
     for (int i=0; i < MAX; i++) {
 
-        if ((hashStruct->hashes[i].size)>1){
+        if ((hashStruct->hashes[i].size)>1){  //SE FOR MAIOR QUE 1
 
             var=255/(hashStruct->hashes[i].size);
                 //printf("Hash %d tem %d elementos: ",i,hashStruct->hashes[i].size);
@@ -164,13 +164,13 @@ void mapaColisoes(HashStruct *hashStruct, printNode print){
 
 
             //printf(" X ");
-        }if((hashStruct->hashes[i].size)==0){
+        }if((hashStruct->hashes[i].size)==0){   //SE TIVER ZERADA A POSIÇÃO
             //vet[i]=0;
             fprintf(imageFile,"255 255 255\n");
             //printf(" . ");
 
         }else{
-            fprintf(imageFile,"0 255 0\n");
+            fprintf(imageFile,"0 255 0\n");   //SE TIVER 1 ELEMENTO NA POSIÇÃO
         }
 
     }
