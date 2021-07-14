@@ -1,0 +1,76 @@
+Minha terra tem palmeiras
+Onde canta o Sabia
+As aves que aqui gorjeiam
+Nao gorjeiam como la
+Nosso ceu tem mais estrelas
+Nossas varzeas tem mais flores
+Nossos bosques tem mais vida
+Nossa vida mais amores
+Em cismar sozinho a noite
+Mais prazer encontro eu la
+Minha terra tem palmeiras
+Onde canta o Sabia
+Minha terra tem primores
+Que tais nao encontro eu ca
+Em cismar sozinho a noite
+Mais prazer encontro eu la
+Minha terra tem palmeiras
+Onde canta o Sabia
+Nao permita Deus que eu morra
+Sem que volte para la
+Sem que desfrute os primores
+Que nao encontro por ca
+Sem que ainda aviste as palmeiras
+Onde canta o Sabia
+teste
+Separate chaining
+Hash collision resolved by separate chaining
+In the method known as separate chaining, each bucket is independent, 
+and has some sort of list of entries with the same index. The time for 
+hash table operations is the time to find the bucket (which is constant) 
+plus the time for the list operation.
+In most implementations buckets will have few entries, if the hash function 
+is working properly. Therefore, structures that are efficient in time and space 
+for these cases are preferred. Structures that are efficient for a fairly large 
+number of entries per bucket are not needed or desirable. If these cases happen 
+often, the hashing function needs to be fixed.[10]
+There are some implementations[11] which give excellent performance for both 
+time and space, with the average number of elements per bucket ranging between 5 and 100.
+Minha terra tem palmeiras
+Onde canta o Sabia
+As aves que aqui gorjeiam
+Nao gorjeiam como la
+Nosso ceu tem mais estrelas
+Nossas varzeas tem mais flores
+Nossos bosques tem mais vida
+Nossa vida mais amores
+Em cismar sozinho a noite
+Mais prazer encontro eu la
+Minha terra tem palmeiras
+Onde canta o Sabia
+Minha terra tem primores
+Que tais nao encontro eu ca
+Em cismar sozinho a noite
+Mais prazer encontro eu la
+Minha terra tem palmeiras
+Onde canta o Sabia
+Nao permita Deus que eu morra
+Sem que volte para la
+Sem que desfrute os primores
+Que nao encontro por ca
+Sem que ainda aviste as palmeiras
+Onde canta o Sabia
+teste
+Separate chaining
+Hash collision resolved by separate chaining
+In the method known as separate chaining, each bucket is independent, 
+and has some sort of list of entries with the same index. The time for 
+hash table operations is the time to find the bucket (which is constant) 
+plus the time for the list operation.
+In most implementations buckets will have few entries, if the hash function 
+is working properly. Therefore, structures that are efficient in time and space 
+for these cases are preferred. Structures that are efficient for a fairly large 
+number of entries per bucket are not needed or desirable. If these cases happen 
+often, the hashing function needs to be fixed.[10]
+There are some implementations[11] which give excellent performance for both 
+time and space, with the average number of elements per bucket ranging between 5 and 100.

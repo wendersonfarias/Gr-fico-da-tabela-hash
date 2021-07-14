@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1625800131 source:c:\users\klein\dev\maisumppm\main.cpp
+	<stdio.h>
+	<stdlib.h>
+
+1626156258 source:c:\users\klein\dev\trabalho ed_2\maisumppmpix\main.cpp
+	<stdio.h>
+	<stdlib.h>
+
+1626235376 source:c:\users\klein\dev\trabalho ed_2\ppm_pix\main.cpp
+	<stdio.h>
+	<stdlib.h>
+

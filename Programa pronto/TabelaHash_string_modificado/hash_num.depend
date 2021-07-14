@@ -1,0 +1,38 @@
+# depslib dependency file v1.0
+1626141653 source:c:\users\klein\dev\apagar_tentativa_c++_hash\hash.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<windows.h>
+	<time.h>
+	<conio.h>
+	"hash.h"
+
+1626141982 c:\users\klein\dev\apagar_tentativa_c++_hash\hash.h
+
+1626141957 source:c:\users\klein\dev\apagar_tentativa_c++_hash\main.cpp
+	"hash.c"
+
+1626143373 c:\users\klein\dev\apagar_tentativa_c++_hash\hash.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<windows.h>
+	<time.h>
+	<conio.h>
+	"hash.h"
+
+1626141957 source:c:\users\klein\dev\trabalho ed_2\programa pronto\tabela hash colisoes c++\main.cpp
+	"hash.c"
+
+1626143575 c:\users\klein\dev\trabalho ed_2\programa pronto\tabela hash colisoes c++\hash.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<windows.h>
+	<time.h>
+	<conio.h>
+	"hash.h"
+
+1626141982 c:\users\klein\dev\trabalho ed_2\programa pronto\tabela hash colisoes c++\hash.h
+
