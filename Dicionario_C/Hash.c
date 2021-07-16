@@ -4,8 +4,8 @@
 #include "Hash.h"
 
 //Inicio
-//Nesta função de inicialização iremos percorrer cada posição de nossa tabela de hash inicializando a lista duplamente ligada de cada posição (Definição em http://www.jppreti.com/2019/07/29/tabela-hash/#Hashh)
-//init usado é o da DoublyLinkedList, Lista Duplamente Ligada.
+//Nesta funÃ§Ã£o de inicializaÃ§Ã£o iremos percorrer cada posiÃ§Ã£o de nossa tabela de hash inicializando a lista duplamente ligada de cada posiÃ§Ã£o (DefiniÃ§Ã£o em http://www.jppreti.com/2019/07/29/tabela-hash/#Hashh)
+//init usado Ã© o da DoublyLinkedList, Lista Duplamente Ligada.
 
 void initHash(HashStruct *hashStruct) {
     for (int i=0;i<MAX;i++) {
@@ -18,16 +18,16 @@ void initHash(HashStruct *hashStruct) {
 bool isHashEmpty(HashStruct *hashStruct) {
     return hashStruct->size==0;
 }
-// hash (by Matheus Santiago) : Recebe uma chave e calcula qual posição deveremos inserir o dado associado a chave.
-//A chave pode ser um nome, numero ou codigo de barras, normalmente é um dado unico.
+// hash (by Matheus Santiago) : Recebe uma chave e calcula qual posiÃ§Ã£o deveremos inserir o dado associado a chave.
+//A chave pode ser um nome, numero ou codigo de barras, normalmente Ã© um dado unico.
 int hash(char *key) {
     int sum = 0;
     // percorremos todos os caracteres da string passada
     for (int i = 0; key[i]!=0;i++) {
-         //acumulamos os códigos ascii de cada letra com um peso
+         //acumulamos os cÃ³digos ascii de cada letra com um peso
         sum+=key[i]*(i+1);
     }
-    return sum%MAX;  //retorna o resto da divisão
+    return sum%MAX;  //retorna o resto da divisÃ£o
 
 
     /*    int total = 0;                            //segunda funcao hash
@@ -42,10 +42,10 @@ int hash(char *key) {
 
 }
 // put by Wenderson Farias / verifica se a chave ja foi inserida na tabela
-// caso nao, então é inserido um novo elemento na tabela.
+// caso nao, entÃ£o Ã© inserido um novo elemento na tabela.
 int put(HashStruct *hashStruct, char *key, void *data, compare equal)  {
 	if (!containsKey(hashStruct, key, equal)){
-        //adiciona na fila que está na posição devolvida pela função hash
+        //adiciona na fila que estÃ¡ na posiÃ§Ã£o devolvida pela funÃ§Ã£o hash
         int res = enqueue(&hashStruct->hashes[hash(key)],data);
         //incrementa a qtde de elementos baseado na quantidade inserida por enqueue
         hashStruct->size+=res;//se isso aconteceu houve colisao
@@ -54,47 +54,47 @@ int put(HashStruct *hashStruct, char *key, void *data, compare equal)  {
     return 0;
 }
 
-// containsKey (by Leandro Klein) : verificar se a chave já existe na tabela de hash.
+// containsKey (by Leandro Klein) : verificar se a chave jÃ¡ existe na tabela de hash.
 bool containsKey(HashStruct *hashStruct, char *key, compare equal) {
-    //calcula a posição
-    int hashValue = hash(key);//função para descobrir em que lista está a chave.
-    //busca na fila a posição da chave
+    //calcula a posiÃ§Ã£o
+    int hashValue = hash(key);//funÃ§Ã£o para descobrir em que lista estÃ¡ a chave.
+    //busca na fila a posiÃ§Ã£o da chave
     int pos = indexOf(&hashStruct->hashes[hashValue], key, equal);
-    //A função indexOf retorna a posição da chave na lista. Caso o retorno seja -1 a chave não está na lista.
+    //A funÃ§Ã£o indexOf retorna a posiÃ§Ã£o da chave na lista. Caso o retorno seja -1 a chave nÃ£o estÃ¡ na lista.
     //printf("\n Posicao >>> %d \n",pos);
     return (pos!=-1)?true:false;
 
 }
 
-//Função get by Carlos Henrique: Reqaliza busca no codigo e retorna o dado procurado, se não houverem dados retorna o primeiro nó (sentinela) de valor nulo.
+//FunÃ§Ã£o get by Carlos Henrique: Reqaliza busca no codigo e retorna o dado procurado, se nÃ£o houverem dados retorna o primeiro nÃ³ (sentinela) de valor nulo.
 void* get(HashStruct *hashStruct, char *key, compare equal) {
-    // descobre em qual fila/lista está o dado
+    // descobre em qual fila/lista estÃ¡ o dado
     int hashValue = hash(key);
-    //first é nó sentinela, começamos do segundo nó
+    //first Ã© nÃ³ sentinela, comeÃ§amos do segundo nÃ³
     Node *aux = hashStruct->hashes[hashValue].first->next;
     // procuramos o dado na lista
     while(aux!=hashStruct->hashes[hashValue].first && !equal(aux->data, key))
         aux=aux->next;
     return aux->data;
 }
-// função hash(thiago ramalho) gera uma chave e calcula qual a posição em que deve-se inserir o dado associado a chave, na qual a chave pode ser um nome, código de barras ou número, mas na maioria dos casos é um dado único
+// funÃ§Ã£o hash(thiago ramalho) gera uma chave e calcula qual a posiÃ§Ã£o em que deve-se inserir o dado associado a chave, na qual a chave pode ser um nome, cÃ³digo de barras ou nÃºmero, mas na maioria dos casos Ã© um dado Ãºnico
 
-//Função removeKey (by Wallatan França / Mickael Luiz)	remove um par (chave, valor)
+//FunÃ§Ã£o removeKey (by Wallatan FranÃ§a / Mickael Luiz)	remove um par (chave, valor)
 void* removeKey(HashStruct *hashStruct, char *key, compare equal) {
-    int hashValue = hash(key);// após calcular o hash da chave enviada, atribui o valor a váriavel do tipo hashValue
-    int pos = indexOf(&hashStruct->hashes[hashValue], key, equal);// a váriavel pos tipo int, recebe a posição encontrada por indexOf com base nos parâmetros passados
-	//remove o valor da posição
+    int hashValue = hash(key);// apÃ³s calcular o hash da chave enviada, atribui o valor a vÃ¡riavel do tipo hashValue
+    int pos = indexOf(&hashStruct->hashes[hashValue], key, equal);// a vÃ¡riavel pos tipo int, recebe a posiÃ§Ã£o encontrada por indexOf com base nos parÃ¢metros passados
+	//remove o valor da posiÃ§Ã£o
     void* result = removePos(&hashStruct->hashes[hashValue], pos);
-	//Verifica se é o unico nó da lista, se nao for, diminui um valor de size em 1
+	//Verifica se Ã© o unico nÃ³ da lista, se nao for, diminui um valor de size em 1
     if (result!=NULL) hashStruct->size--;
     return result;
 }
 
-//função ShowHashStruct por Lucio Lisboa. Função com o proposito de exibir os pares armazenados, ou seja, mostra quantos hash tem e quantos elementos cada hash tem
+//funÃ§Ã£o ShowHashStruct por Lucio Lisboa. FunÃ§Ã£o com o proposito de exibir os pares armazenados, ou seja, mostra quantos hash tem e quantos elementos cada hash tem
 void showHashStruct(HashStruct *hashStruct, printNode print) {
     //printf mostrando na tela quantos elementos a hash tem
     printf("Existem %d elementos nesta tabela hash\n\n",hashStruct->size);
-    //estrutura de repetição com o intuito de navegar entre as hashes e mostrar quantos elementos cada hash tem
+    //estrutura de repetiÃ§Ã£o com o intuito de navegar entre as hashes e mostrar quantos elementos cada hash tem
     for (int i=0; i < MAX; i++) {
         printf("Hash %d tem %d elementos: ",i,hashStruct->hashes[i].size);
         show(&hashStruct->hashes[i],print);
@@ -104,7 +104,7 @@ void showHashStruct(HashStruct *hashStruct, printNode print) {
 void imprimeColisoes(HashStruct *hashStruct, printNode print) {
     //printf mostrando na tela quantos elementos a hash tem
     printf("Existem %d elementos nesta tabela hash\n\n",hashStruct->size);
-    //estrutura de repetição com o intuito de navegar entre as hashes e mostrar quantos elementos cada hash tem
+    //estrutura de repetiÃ§Ã£o com o intuito de navegar entre as hashes e mostrar quantos elementos cada hash tem
     printf("\n\t");
     for (int i=0; i < MAX; i++) {
         if ((hashStruct->hashes[i].size)>1){
@@ -152,7 +152,7 @@ void mapaColisoes(HashStruct *hashStruct, printNode print){
 
     //printf mostrando na tela quantos elementos a hash tem
     printf("Existem %d elementos nesta tabela hash\n\n",hashStruct->size);
-    //estrutura de repetição com o intuito de navegar entre as hashes e mostrar quantos elementos cada hash tem
+    //estrutura de repetiÃ§Ã£o com o intuito de navegar entre as hashes e mostrar quantos elementos cada hash tem
     for (int i=0; i < MAX; i++) {
 
         if ((hashStruct->hashes[i].size)>1){  //SE FOR MAIOR QUE 1
@@ -164,13 +164,13 @@ void mapaColisoes(HashStruct *hashStruct, printNode print){
 
 
             //printf(" X ");
-        }if((hashStruct->hashes[i].size)==0){   //SE TIVER ZERADA A POSIÇÃO
+        }if((hashStruct->hashes[i].size)==0){   //SE TIVER ZERADA A POSIÃ‡ÃƒO
             //vet[i]=0;
             fprintf(imageFile,"255 255 255\n");
             //printf(" . ");
 
         }else{
-            fprintf(imageFile,"0 255 0\n");   //SE TIVER 1 ELEMENTO NA POSIÇÃO
+            fprintf(imageFile,"0 255 0\n");   //SE TIVER 1 ELEMENTO NA POSIÃ‡ÃƒO
         }
 
     }
@@ -187,7 +187,7 @@ void carregaArquivo(HashStruct *hashStruct,Palavra *t_palavra){
     else
         while(!feof(arq)){
             c = (Palavra *)malloc(sizeof(Palavra));
-            fscanf(arq, "%s", &c->texto);
+            fscanf(arq, "%s", c->texto);
             put(hashStruct, c->texto, c, comparaChaves);
         }
         fclose(arq);
