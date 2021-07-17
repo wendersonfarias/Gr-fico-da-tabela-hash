@@ -1,1 +1,0 @@
-gcc main.c DoublyLinkedList.c DoublyLinkedList.h Hash.c Hash.h -o teste
