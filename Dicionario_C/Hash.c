@@ -3,10 +3,8 @@
 #include <string.h>
 #include "Hash.h"
 
-//Inicio
-//Nesta função de inicialização iremos percorrer cada posição de nossa tabela de hash inicializando a lista duplamente ligada de cada posição (Definição em http://www.jppreti.com/2019/07/29/tabela-hash/#Hashh)
-//init usado é o da DoublyLinkedList, Lista Duplamente Ligada.
-
+//Função de inicialização para percorrer cada posição da tabela de hash inicializando a lista duplamente ligada
+//Init usado é o da DoublyLinkedList, Lista Duplamente Ligada.
 void initHash(HashStruct *hashStruct) {
     for (int i=0;i<MAX;i++) {
         //chamando init de DoublyLinkedList para inicializar cada lista do vetor
@@ -14,47 +12,41 @@ void initHash(HashStruct *hashStruct) {
     }
     hashStruct->size = 0;
 }
-
+//Booleano para verificar se a tabela está ou não vazia.
 bool isHashEmpty(HashStruct *hashStruct) {
     return hashStruct->size==0;
 }
-// hash (by Matheus Santiago) : Recebe uma chave e calcula qual posição deveremos inserir o dado associado a chave.
-//A chave pode ser um nome, numero ou codigo de barras, normalmente é um dado unico.
+// Recebe uma chave e calcula qual posição deveremos inserir o dado associado a chave.
 int hash(char *key) {
     int sum = 0;
-    // percorremos todos os caracteres da string passada
+    //Percorre todos os caracteres da string passada
     for (int i = 0; key[i]!=0;i++) {
          //acumulamos os códigos ascii de cada letra com um peso
         sum+=key[i]*(i+1);
     }
     return sum%MAX;  //retorna o resto da divisão
 
-
     /*    int total = 0;                            //segunda funcao hash
     for (int i=0; key[i]!='\0'; i++)
        total += key[i]*(i+5);
-
    float A = 0.2158894584;
    float val = A * total;
    val = val - (int) val;
-
    return (int) (val * MAX);*/
-
 }
-// put by Wenderson Farias / verifica se a chave ja foi inserida na tabela
-// caso nao, então é inserido um novo elemento na tabela.
+// Verifica se a chave já está contida na tabela.
+// Caso contrário, é inserido um novo elemento na tabela.
 int put(HashStruct *hashStruct, char *key, void *data, compare equal)  {
 	if (!containsKey(hashStruct, key, equal)){
-        //adiciona na fila que está na posição devolvida pela função hash
+        //Adiciona na fila que está na posição devolvida pela função hash
         int res = enqueue(&hashStruct->hashes[hash(key)],data);
-        //incrementa a qtde de elementos baseado na quantidade inserida por enqueue
-        hashStruct->size+=res;//se isso aconteceu houve colisao
+        //Incrementa a quantidade de elementos baseado na quantidade inserida por enqueue
+        hashStruct->size+=res;
         return res;
     }
     return 0;
 }
-
-// containsKey (by Leandro Klein) : verificar se a chave já existe na tabela de hash.
+// Verificar se a chave já existe na tabela de hash.
 bool containsKey(HashStruct *hashStruct, char *key, compare equal) {
     //calcula a posição
     int hashValue = hash(key);//função para descobrir em que lista está a chave.
@@ -63,10 +55,8 @@ bool containsKey(HashStruct *hashStruct, char *key, compare equal) {
     //A função indexOf retorna a posição da chave na lista. Caso o retorno seja -1 a chave não está na lista.
     //printf("\n Posicao >>> %d \n",pos);
     return (pos!=-1)?true:false;
-
 }
-
-//Função get by Carlos Henrique: Reqaliza busca no codigo e retorna o dado procurado, se não houverem dados retorna o primeiro nó (sentinela) de valor nulo.
+//Realiza busca no codigo e retorna o dado procurado, se não houverem dados retorna o primeiro nó (sentinela) de valor nulo.
 void* get(HashStruct *hashStruct, char *key, compare equal) {
     // descobre em qual fila/lista está o dado
     int hashValue = hash(key);
@@ -77,9 +67,7 @@ void* get(HashStruct *hashStruct, char *key, compare equal) {
         aux=aux->next;
     return aux->data;
 }
-// função hash(thiago ramalho) gera uma chave e calcula qual a posição em que deve-se inserir o dado associado a chave, na qual a chave pode ser um nome, código de barras ou número, mas na maioria dos casos é um dado único
-
-//Função removeKey (by Wallatan França / Mickael Luiz)	remove um par (chave, valor)
+//Remove um par (chave, valor)
 void* removeKey(HashStruct *hashStruct, char *key, compare equal) {
     int hashValue = hash(key);// após calcular o hash da chave enviada, atribui o valor a váriavel do tipo hashValue
     int pos = indexOf(&hashStruct->hashes[hashValue], key, equal);// a váriavel pos tipo int, recebe a posição encontrada por indexOf com base nos parâmetros passados
@@ -90,7 +78,7 @@ void* removeKey(HashStruct *hashStruct, char *key, compare equal) {
     return result;
 }
 
-//função ShowHashStruct por Lucio Lisboa. Função com o proposito de exibir os pares armazenados, ou seja, mostra quantos hash tem e quantos elementos cada hash tem
+//Exibe os pares armazenados, ou seja, mostra quantos hash tem e quantos elementos cada hash tem
 void showHashStruct(HashStruct *hashStruct, printNode print) {
     //printf mostrando na tela quantos elementos a hash tem
     printf("Existem %d elementos nesta tabela hash\n\n",hashStruct->size);
@@ -101,96 +89,81 @@ void showHashStruct(HashStruct *hashStruct, printNode print) {
         printf("\n");
     }
 }
+//Exibe as colisoes, caso elas existam
 void imprimeColisoes(HashStruct *hashStruct, printNode print) {
     //printf mostrando na tela quantos elementos a hash tem
     printf("Existem %d elementos nesta tabela hash\n\n",hashStruct->size);
-    //estrutura de repetição com o intuito de navegar entre as hashes e mostrar quantos elementos cada hash tem
+    //Navega entre as hashes e mostrar quantos elementos cada hash tem
     printf("\n\t");
-    for (int i=0; i < MAX; i++) {
-        if ((hashStruct->hashes[i].size)>1){
-            //printf("Hash %d tem %d elementos: ",i,hashStruct->hashes[i].size);
+    for (int i=0; i < MAX; i++) 
+        if ((hashStruct->hashes[i].size)>1)
             printf("%d\t",i);
-            //show(&hashStruct->hashes[i],print);
-            //printf("\n");
-        }
-
-    }
 }
+//Faz a verificacao da igualdade dos dados. Por ser void, pode ser de qualquer tipo.
 bool comparaChaves(void *key, void *data) {
     char *chave = (char*)key;
     Palavra *c = (Palavra*)data;
     return (strcmp (chave, c->texto) == 0)?true:false;
 }
-
+//Imprime o dado armazenado
 void printPalavra(void *data) {
     Palavra *palavra = (Palavra*)data;
     printf("{%s} - ", palavra->texto);
 }
-
-void porcentagemHash(HashStruct *hashStruct){   // CADA VEZ QUE TIVER UMA POSICAO OCUPADA, DAI INCREMENTA O CONTADOR.
-        float contador = 0.0;			//ELA CONTA OS ESPACOS OCUPADOS E USA O TAMANHO DA TABELA E FAZ A PORCENTAGEM.
+//Mostra a porcentagem de ocupacao da tabela
+void porcentagemHash(HashStruct *hashStruct){
+        float contador = 0.0;
         for (int i=0; i < MAX; i++) {
-            if(hashStruct->hashes[i].size > 1){
+            if(hashStruct->hashes[i].size >= 1){//Caso a hash tenha pelo menos um elemento, o contador é incrementado.
                 contador += 1;
             }
         }
-    printf("\n PORCENTAGEM DE OCUPACAO: %.2f", (contador/MAX)*100 );
-
+    printf("\n PORCENTAGEM DE OCUPACAO: %.2f", (contador/MAX)*100 );//Cálculo da porcentagem e apresentação para o usuário.
 }
-void mapaColisoes(HashStruct *hashStruct, printNode print){
-    int var=0;
-     FILE *imageFile;
-   int larg=55,alt=55;
-   imageFile=fopen("imagem.ppm","wb");
-   if(imageFile==NULL){
-      perror("ERROR: Cannot open output file");
-      exit(EXIT_FAILURE);
-   }
-   fprintf(imageFile,"P3\n");               // P6 filetype
-   fprintf(imageFile,"%d %d\n",larg,alt);   // dimensions
-   fprintf(imageFile,"255\n");              // Max pixel
-
-    //printf mostrando na tela quantos elementos a hash tem
-    printf("Existem %d elementos nesta tabela hash\n\n",hashStruct->size);
-    //estrutura de repetição com o intuito de navegar entre as hashes e mostrar quantos elementos cada hash tem
-    for (int i=0; i < MAX; i++) {
-
-        if ((hashStruct->hashes[i].size)>1){  //SE FOR MAIOR QUE 1
-
-            var=255/(hashStruct->hashes[i].size);
-                //printf("Hash %d tem %d elementos: ",i,hashStruct->hashes[i].size);
-            //vet[i]=1;
-            fprintf(imageFile,"0 %d 0\n",var+20);
-
-
-            //printf(" X ");
-        }if((hashStruct->hashes[i].size)==0){   //SE TIVER ZERADA A POSIÇÃO
-            //vet[i]=0;
-            fprintf(imageFile,"255 255 255\n");
-            //printf(" . ");
-
-        }else{
-            fprintf(imageFile,"0 255 0\n");   //SE TIVER 1 ELEMENTO NA POSIÇÃO
-        }
-
+//Gera arquivo no formato PPM para visuzalização do espalhamento da hash.
+void mapaColisoes(HashStruct *hashStruct){
+    int var;//Variavel para receber a quantidade de elementos de cada lista.
+    FILE *imageFile;
+    int larg=55,alt=55;
+    imageFile=fopen("imagem.ppm","wb");//Abertura do arquivo
+    if(imageFile==NULL){
+        perror("ERROR: Cannot open output file");
+        exit(EXIT_FAILURE);
     }
-fclose(imageFile);
-
+    //Escreve o cabeçalho do formato PPM
+    fprintf(imageFile,"P3\n");               // P3 filetype
+    fprintf(imageFile,"%d %d\n",larg,alt);   // dimensão da imagem
+    fprintf(imageFile,"255\n");              // Máximo de pixel
+    //Exibe na tela quantos elementos a hash tem
+    printf("Existem %d elementos nesta tabela hash\n\n",hashStruct->size);
+    for (int i=0; i < MAX; i++) {
+        //Caso a lista não esteja vazia, é escrito no PPM uma variação de cor conforme a quantidade de elementos.
+        if ((hashStruct->hashes[i].size)!= 0){  
+            if ((hashStruct->hashes[i].size) >= 1){
+                var=255/(hashStruct->hashes[i].size);
+                fprintf(imageFile,"0 %d 0\n",var+20);//Impressão da variação de cor.
+            }
+        }else//Caso a posição da hash esteja vazia, imprima a cor mais clara possível.
+            fprintf(imageFile,"0 255 0\n");
+    }
+    printf("\nArquivo PPM gerado com sucesso. Visualize o arquivo na pasta na pasta de execução deste programa.\n\n",hashStruct->size);
+    fclose(imageFile);
 }
+//Carrega o arquivo de texto para alimentar a tabela hash
 void carregaArquivo(HashStruct *hashStruct,Palavra *t_palavra){
     Palavra *c = (Palavra *)malloc(sizeof(Palavra));
-    char url[]="lista.txt";
+    char url[]="lista.txt";//guarda o nome do arquivo
     FILE *arq;
-    arq = fopen(url, "r");
+    arq = fopen(url, "r");//Abertura do arquivo
     if(arq == NULL)
         printf("Erro, nao foi possivel abrir o arquivo\n");
     else
-        while(!feof(arq)){
-            c = (Palavra *)malloc(sizeof(Palavra));
-            fscanf(arq, "%s", c->texto);
-            put(hashStruct, c->texto, c, comparaChaves);
+        while(!feof(arq)){//Até o final do arquivo 
+            c = (Palavra *)malloc(sizeof(Palavra));//Cria um espaço na memória para armazena a palavra
+            fscanf(arq, "%s", c->texto);//Leia a palavra e armazene na variável auxiliar
+            put(hashStruct, c->texto, c, comparaChaves);//Faça o empilhamento da palavra na tabela
         }
-        fclose(arq);
+        fclose(arq);//O arquivo é fechado
 }
 
 
