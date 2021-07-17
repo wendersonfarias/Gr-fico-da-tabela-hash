@@ -26,13 +26,14 @@ int hash(char *key) {
     }
     return sum%MAX;  //retorna o resto da divisão
 
-    /*    int total = 0;                            //segunda funcao hash
+    /*int total = 0;                            //segunda funcao hash
     for (int i=0; key[i]!='\0'; i++)
-       total += key[i]*(i+5);
-   float A = 0.2158894584;
-   float val = A * total;
-   val = val - (int) val;
-   return (int) (val * MAX);*/
+       total += key[i]*(i+3);
+    float A = 0.967341;
+    float val = A * total;
+    val = val - (int) val;
+    return (int) (val * MAX);*/
+
 }
 // Verifica se a chave já está contida na tabela.
 // Caso contrário, é inserido um novo elemento na tabela.
@@ -130,7 +131,8 @@ void porcentagemHash(HashStruct *hashStruct){
 void mapaEspalhamento(HashStruct *hashStruct){
     int var;//Variavel para receber a quantidade de elementos de cada lista.
     FILE *imageFile;
-    int larg=55,alt=55;
+    //int larg=55,alt=55;
+    int larg=60,alt=60;
     imageFile=fopen("imagem.ppm","wb");//Abertura do arquivo
     if(imageFile==NULL){
         perror("ERROR: Cannot open output file");
@@ -145,10 +147,10 @@ void mapaEspalhamento(HashStruct *hashStruct){
         if ((hashStruct->hashes[i].size)!= 0){  
             if ((hashStruct->hashes[i].size) >= 1){
                 var=255/(hashStruct->hashes[i].size);
-                fprintf(imageFile,"0 %d 0\n",var+20);//Impressão da variação de cor.
+                fprintf(imageFile,"0 %d 0\n",var);//Impressão da variação de cor.
             }
         }else//Caso a posição da hash esteja vazia, imprima a cor mais clara possível.
-            fprintf(imageFile,"0 255 0\n");
+            fprintf(imageFile,"241 255 162\n");
     }
     printf("\n\nArquivo PPM gerado com sucesso. Visualize o arquivo na pasta na pasta de execucao deste programa.");
     fclose(imageFile);
