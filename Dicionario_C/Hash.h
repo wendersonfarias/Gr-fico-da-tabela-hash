@@ -4,6 +4,8 @@
 #include "DoublyLinkedList.h"
 #define MAX 3025 // tabela 55 x 55
 
+//teste de commit no hash.h
+
 typedef struct HashStruct {//Struct para manipular a tabela hash
     DoublyLinkedList hashes[MAX];
     int size;

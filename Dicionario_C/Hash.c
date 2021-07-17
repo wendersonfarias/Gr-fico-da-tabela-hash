@@ -3,6 +3,8 @@
 #include <string.h>
 #include "Hash.h"
 
+//teste de commit no hash.c
+
 //Função de inicialização para percorrer cada posição da tabela de hash inicializando a lista duplamente ligada
 //Init usado é o da DoublyLinkedList, Lista Duplamente Ligada.
 void initHash(HashStruct *hashStruct) {

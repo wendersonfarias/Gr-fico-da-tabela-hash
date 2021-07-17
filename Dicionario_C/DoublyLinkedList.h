@@ -1,6 +1,7 @@
 #ifndef DOUBLYLINKEDLIST_H_INCLUDED
 #define DOUBLYLINKEDLIST_H_INCLUDED
 
+//teste de commit no LnkList.h
 //Cria um tipo booleano para utilização em C.
 enum boolean {
     true = 1, false = 0

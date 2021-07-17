@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Hash.h"
-
+//teste de commit no main
 int main() {
     HashStruct hashes;
     Palavra t_palavra;
