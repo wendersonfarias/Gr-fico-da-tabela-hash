@@ -42,7 +42,7 @@ int main() {
                 imprimeColisoes(&hashes, printPalavra);
                 break;
             case 6:
-                mapaColisoes(&hashes, printPalavra);
+                mapaColisoes(&hashes);
                 break;
             case 0:
                 break;
