@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "DoublyLinkedList.h"
-//teste de commit no Lnklist.c
 
 //Inicia a lista circular com o recurso do nó sentinela.
 void init(DoublyLinkedList *list) {

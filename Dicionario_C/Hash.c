@@ -3,8 +3,6 @@
 #include <string.h>
 #include "Hash.h"
 
-//teste de commit no hash.c
-
 //Função de inicialização para percorrer cada posição da tabela de hash inicializando a lista duplamente ligada
 //Init usado é o da DoublyLinkedList, Lista Duplamente Ligada.
 void initHash(HashStruct *hashStruct) {
@@ -152,7 +150,7 @@ void mapaEspalhamento(HashStruct *hashStruct){
         }else//Caso a posição da hash esteja vazia, imprima a cor mais clara possível.
             fprintf(imageFile,"0 255 0\n");
     }
-    printf("\n\nArquivo PPM gerado com sucesso. Visualize o arquivo na pasta na pasta de execucao deste programa.",hashStruct->size);
+    printf("\n\nArquivo PPM gerado com sucesso. Visualize o arquivo na pasta na pasta de execucao deste programa.");
     fclose(imageFile);
 }
 //Carrega o arquivo de texto para alimentar a tabela hash
