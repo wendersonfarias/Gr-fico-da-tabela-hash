@@ -37,12 +37,17 @@ int hash(char *key) {
     /*unsigned long hash = 5381;
         int c;
         while ((c = *key++))
+<<<<<<< HEAD
             hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
        unsigned long hash = 5381;
         int c;
         while ((c = *key++))
            hash = c + (hash << 6) + (hash << 16) - hash;               //1*
            // hash = ((hash << 5) + hash) + c; /* hash * 33 + c */        //2*
+=======
+           // hash = c + (hash << 6) + (hash << 16) - hash;               //1*
+           // hash = ((hash << 5) + hash) + c; /* hash * 33 + c /        //2*
+>>>>>>> ef0346f3edb710407d436c2800223b383a90e496
         return hash % MAX;
 
 
