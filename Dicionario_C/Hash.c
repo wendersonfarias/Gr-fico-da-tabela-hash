@@ -34,11 +34,17 @@ int hash(char *key) {
     val = val - (int) val;
     return (int) (val * MAX);*/
 
-    unsigned long hash = 5381;
+    /*unsigned long hash = 5381;
         int c;
         while ((c = *key++))
             hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+       unsigned long hash = 5381;
+        int c;
+        while ((c = *key++))
+           hash = c + (hash << 6) + (hash << 16) - hash;               //1*
+           // hash = ((hash << 5) + hash) + c; /* hash * 33 + c */        //2*
         return hash % MAX;
+
 
 }
 // Verifica se a chave já está contida na tabela.
@@ -136,9 +142,11 @@ void porcentagemHash(HashStruct *hashStruct){
 //Gera arquivo no formato PPM para visuzalização do espalhamento da hash.
 void mapaEspalhamento(HashStruct *hashStruct){
     int var;//Variavel para receber a quantidade de elementos de cada lista.
+    int dim_tab=raiz_quadrada();
     FILE *imageFile;
     //int larg=55,alt=55;
-    int larg=60,alt=60;
+    int larg=dim_tab;
+    int alt=dim_tab;
     imageFile=fopen("imagem.ppm","wb");//Abertura do arquivo
     if(imageFile==NULL){
         perror("ERROR: Cannot open output file");
@@ -178,5 +186,14 @@ void carregaArquivo(HashStruct *hashStruct,Palavra *t_palavra){
         printf("\nArquivo carregado com sucesso!");
         fclose(arq);//O arquivo é fechado
 }
-
+int raiz_quadrada ()
+{
+    int n;
+    float recorre = MAX;
+   
+    for (n = 0; n < 10; ++n)
+          recorre = recorre/2 + MAX/(2*recorre);
+           
+    return(recorre);    
+}    
 

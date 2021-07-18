@@ -30,5 +30,6 @@ void imprimeColisoes(HashStruct *hashStruct, printNode print);
 void mapaEspalhamento(HashStruct *hashStruct);
 void carregaArquivo(HashStruct *hashStruct,Palavra *t_palavra);
 void porcentagemHash(HashStruct *hashStruct);
+int raiz_quadrada ();
 
 #endif // HASH_H_INCLUDED
