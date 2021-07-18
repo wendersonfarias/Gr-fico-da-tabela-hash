@@ -37,7 +37,7 @@ int hash(char *key) {
     unsigned long hash = 5381;
         int c;
         while ((c = *key++))
-            hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+            hash = c + (hash << 6) + (hash << 16) - hash;
         return hash % MAX;
 
 }
