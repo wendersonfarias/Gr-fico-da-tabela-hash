@@ -18,13 +18,13 @@ bool isHashEmpty(HashStruct *hashStruct) {
 }
 // Recebe uma chave e calcula qual posição deveremos inserir o dado associado a chave.
 int hash(char *key) {
-    int sum = 0;
+   /* int sum = 0;
     //Percorre todos os caracteres da string passada
     for (int i = 0; key[i]!=0;i++) {
          //acumulamos os códigos ascii de cada letra com um peso
         sum+=key[i]*(i+1);
     }
-    return sum%MAX;  //retorna o resto da divisão
+    return sum%MAX;  //retorna o resto da divisão*/
 
     /*int total = 0;                            //segunda funcao hash
     for (int i=0; key[i]!='\0'; i++)
@@ -33,6 +33,12 @@ int hash(char *key) {
     float val = A * total;
     val = val - (int) val;
     return (int) (val * MAX);*/
+
+    unsigned long hash = 5381;
+        int c;
+        while ((c = *key++))
+            hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+        return hash % MAX;
 
 }
 // Verifica se a chave já está contida na tabela.
