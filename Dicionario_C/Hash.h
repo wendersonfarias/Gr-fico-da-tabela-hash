@@ -2,16 +2,15 @@
 #define HASH_H_INCLUDED
 
 #include "DoublyLinkedList.h"
-//#define glb 10000 // tabela 60 x 60
-//#define glb 3600 // tabela 60 x 60
-//#define glb 3025 // tabela 55 x 55
-//#define glb 1225 // tabela 35 x 35
-//#define glb 2025 // tabela 45 x 45
 
-
+//Bloco para escolha do tamanho da tabela hash
+//#define MAX 10000 // tabela 100 x 100
+//#define MAX 4900 // tabela 70 x 70
+//#define MAX 3025 // tabela 55 x 55
+#define MAX 3025 // tabela 55 x 55
 
 typedef struct HashStruct {//Struct para manipular a tabela hash
-    DoublyLinkedList hashes[2025];
+    DoublyLinkedList hashes[MAX];
     int size;
 }HashStruct;
 
@@ -19,7 +18,6 @@ typedef struct Palavra {//Struct para armazenar os dados das listas.
     char texto[50];
 }Palavra;
 
-int lertab();
 void initHash(HashStruct *hashStruct);
 int hash(char *key);
 bool isHashEmpty(HashStruct *hashStruct);
@@ -34,6 +32,6 @@ void imprimeColisoes(HashStruct *hashStruct, printNode print);
 void mapaEspalhamento(HashStruct *hashStruct);
 void carregaArquivo(HashStruct *hashStruct,Palavra *t_palavra);
 void porcentagemHash(HashStruct *hashStruct);
-int raiz_quadrada ();
+int raiz_Qd();
 
 #endif // HASH_H_INCLUDED

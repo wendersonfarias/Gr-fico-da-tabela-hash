@@ -3,50 +3,36 @@
 #include <string.h>
 #include "Hash.h"
 
-
-
-
 int main() {
     HashStruct hashes;
     Palavra t_palavra;
+    initHash(&hashes);
+    printf("\nTabela MAX %d iniciada com sucesso!",MAX);
+    carregaArquivo(&hashes,&t_palavra);
     int opc;
-    printf("\n%d",lertab());
     while (1)
     {
-        printf(" \n\n::::::::::::::::::::: TABELA HASH :::::::::::::::::::::\n\n\n");
-        printf("  \t[1] - INICIAR TABELA\n\n");
-        printf("  \t[2] - LER ARQUIVO TXT\n\n");
-        printf("  \t[3] - IMPRIMIR LISTA\n\n");
-        printf("  \t[4] - EXIBIR PORCENTAGEM DE OCUPACAO\n\n");
-        printf("  \t[5] - EXIBIR POSICAO DAS COLISOES\n\n");
-        printf("  \t[6] - MAPA DE ESPALHAMENTO\n\n");
+        printf(" \n\n::::::::::::::::::::: TABELA HASH MAX %d (%d x %d):::::::::::::::::::::\n\n\n",MAX,raiz_Qd(),raiz_Qd());
+        printf("  \t[1] - IMPRIMIR LISTA\n\n");
+        printf("  \t[2] - EXIBIR PORCENTAGEM DE OCUPACAO\n\n");
+        printf("  \t[3] - EXIBIR POSICAO DAS COLISOES\n\n");
+        printf("  \t[4] - MAPA DE ESPALHAMENTO\n\n");
         printf("  \t[0] - SAIR\n\n");
         printf("\n::::::Entre com uma opcao >>>> ");
         scanf ("%d",&opc);
         if (!opc) break;
         switch(opc)
         {
-            case 1://Incia a tabela
-                {
-                    initHash(&hashes);
-                    printf("\nTabela iniciada com sucesso!");
-                }
-                break;
-            case 2://Abre o arquivo, faz a leitura e grava na tabela
-                carregaArquivo(&hashes,&t_palavra);
-                break;
-            case 3:
+            case 1:
                 showHashStruct(&hashes,printPalavra);
                 break;
-             case 4: //Calcula a porcentagem de ocupacao da tabela
-                {
-                    porcentagemHash(&hashes);
-                }
+            case 2: //Calcula a porcentagem de ocupacao da tabela
+                porcentagemHash(&hashes);
                 break;
-             case 5:
+            case 3:
                 imprimeColisoes(&hashes,printPalavra);
                 break;
-            case 6:
+            case 4:
                 mapaEspalhamento(&hashes);
                 break;
             case 0:

@@ -3,32 +3,14 @@
 #include <string.h>
 #include "Hash.h"
 
-
-int glb=0;
-
-
-
 //Função de inicialização para percorrer cada posição da tabela de hash inicializando a lista duplamente ligada
 //Init usado é o da DoublyLinkedList, Lista Duplamente Ligada.
-int lertab(){
-int tam_tab;
-    printf("\nEntre com um tamanho");
-    scanf("%d",&tam_tab);
-    glb=tam_tab;
-    return glb;
-}
-
 void initHash(HashStruct *hashStruct) {
-    for (int i=0;i<glb;i++) {
-        printf("\n tamanho da hash %d ",glb);
+    for (int i=0;i<MAX;i++) {
         //chamando init de DoublyLinkedList para inicializar cada lista do vetor
         init(&(hashStruct->hashes[i]));
     }
     hashStruct->size = 0;
-}
-//Booleano para verificar se a tabela está ou não vazia.
-bool isHashEmpty(HashStruct *hashStruct) {
-    return hashStruct->size==0;
 }
 // Recebe uma chave e calcula qual posição deveremos inserir o dado associado a chave.
 int hash(char *key) {
@@ -38,8 +20,22 @@ int hash(char *key) {
          //acumulamos os códigos ascii de cada letra com um peso
         sum+=key[i]*(i+1);
     }
-    return sum%glb;  //retorna o resto da divisão*/
+    return sum%MAX;  //retorna o resto da divisão*/
 }
+/*
+int hash(char *key) {
+    unsigned long hash = 5381;
+    int c;
+    while ((c = *key++))
+        hash = c + (hash << 6) + (hash << 16) - hash;               
+    return hash % MAX;
+}*/
+
+//Booleano para verificar se a tabela está ou não vazia.
+bool isHashEmpty(HashStruct *hashStruct) {
+    return hashStruct->size==0;
+}
+
 // Verifica se a chave já está contida na tabela.
 // Caso contrário, é inserido um novo elemento na tabela.
 int put(HashStruct *hashStruct, char *key, void *data, compare equal)  {
@@ -87,7 +83,7 @@ void* removeKey(HashStruct *hashStruct, char *key, compare equal) {
 //Exibe os pares armazenados, ou seja, mostra quantos hash tem e quantos elementos cada hash tem
 void showHashStruct(HashStruct *hashStruct, printNode print) {
     //estrutura de repetição com o intuito de navegar entre as hashes e mostrar quantos elementos cada hash tem
-    for (int i=0; i < glb; i++) {
+    for (int i=0; i < MAX; i++) {
         printf("Hash %d tem %d elementos: ",i,hashStruct->hashes[i].size);
         show(&hashStruct->hashes[i],print);
         printf("\n");
@@ -112,31 +108,30 @@ void imprimeColisoes(HashStruct *hashStruct, printNode print) {
     
     //Navega entre as hashes e mostrar quantos elementos cada hash tem
     printf("\n\t");
-    for (int i=0; i < glb; i++) 
+    for (int i=0; i < MAX; i++) 
         if ((hashStruct->hashes[i].size)>1){
             printf("%d\t",i);
             cont++;
         }
     //Exibe quantos elementos a hash tem
-    printf("\n\n\nForam contabilizados %d elementos nesta tabela,",hashStruct->size);
+    printf("\n\n\nForam contabilizados %d elementos nesta tabela, tendo ocorrido",hashStruct->size);
     //Exibe a quantidade de ocorrencias das colisoes
-    printf("sendo contabilizadas %d colisoes.",cont);
+    printf(" %d colisoes.",cont);
 }
 //Mostra a porcentagem de ocupacao da tabela
 void porcentagemHash(HashStruct *hashStruct){
         float contador = 0.0;
-        for (int i=0; i < glb; i++) {
+        for (int i=0; i < MAX; i++) {
             if(hashStruct->hashes[i].size >= 1){//Caso a hash tenha pelo menos um elemento, o contador é incrementado.
                 contador += 1;
             }
         }
-    printf("\n A PORCENTAGEM DE OCUPACAO FOI DE %.2f%%", (contador/glb)*100 );//Cálculo da porcentagem e apresentação para o usuário.
-    printf("\n Variavel global %d",glb);
+    printf("\n A PORCENTAGEM DE OCUPACAO FOI DE %.2f%%", (contador/MAX)*100 );//Cálculo da porcentagem e apresentação para o usuário.
 }
 //Gera arquivo no formato PPM para visuzalização do espalhamento da hash.
 void mapaEspalhamento(HashStruct *hashStruct){
     int var;//Variavel para receber a quantidade de elementos de cada lista.
-    int dim_tab=raiz_quadrada();
+    int dim_tab=raiz_Qd();
     FILE *imageFile;
     //int larg=55,alt=55;
     int larg=dim_tab;
@@ -150,7 +145,7 @@ void mapaEspalhamento(HashStruct *hashStruct){
     fprintf(imageFile,"P3\n");               // P3 filetype
     fprintf(imageFile,"%d %d\n",larg,alt);   // dimensão da imagem
     fprintf(imageFile,"255\n");              // Máximo de pixel
-    for (int i=0; i < glb; i++) {
+    for (int i=0; i < MAX; i++) {
         //Caso a lista não esteja vazia, é escrito no PPM uma variação de cor conforme a quantidade de elementos.
         if ((hashStruct->hashes[i].size)!= 0){  
             if ((hashStruct->hashes[i].size) >= 1){
@@ -160,7 +155,7 @@ void mapaEspalhamento(HashStruct *hashStruct){
         }else//Caso a posição da hash esteja vazia, imprima a cor mais clara possível.
             fprintf(imageFile,"241 255 162\n");
     }
-    printf("\n\nArquivo PPM gerado com sucesso. Visualize o arquivo na pasta na pasta de execucao deste programa.");
+    printf("\n\nArquivo PPM gerado com sucesso. Visualize o arquivo na pasta de execucao deste programa.");
     fclose(imageFile);
 }
 //Carrega o arquivo de texto para alimentar a tabela hash
@@ -180,13 +175,12 @@ void carregaArquivo(HashStruct *hashStruct,Palavra *t_palavra){
         printf("\nArquivo carregado com sucesso!");
         fclose(arq);//O arquivo é fechado
 }
-int raiz_quadrada ()
-{
+int raiz_Qd(){
     int n;
-    float recorre = glb;
+    float recorre = MAX;
    
     for (n = 0; n < 10; ++n)
-          recorre = recorre/2 + glb/(2*recorre);
+          recorre = recorre/2 + MAX/(2*recorre);
            
     return(recorre);    
 }    
