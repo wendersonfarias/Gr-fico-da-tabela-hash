@@ -3,10 +3,24 @@
 #include <string.h>
 #include "Hash.h"
 
+
+int glb=0;
+
+
+
 //Função de inicialização para percorrer cada posição da tabela de hash inicializando a lista duplamente ligada
 //Init usado é o da DoublyLinkedList, Lista Duplamente Ligada.
+int lertab(){
+int tam_tab;
+    printf("\nEntre com um tamanho");
+    scanf("%d",&tam_tab);
+    glb=tam_tab;
+    return glb;
+}
+
 void initHash(HashStruct *hashStruct) {
-    for (int i=0;i<MAX;i++) {
+    for (int i=0;i<glb;i++) {
+        printf("\n tamanho da hash %d ",glb);
         //chamando init de DoublyLinkedList para inicializar cada lista do vetor
         init(&(hashStruct->hashes[i]));
     }
@@ -18,30 +32,13 @@ bool isHashEmpty(HashStruct *hashStruct) {
 }
 // Recebe uma chave e calcula qual posição deveremos inserir o dado associado a chave.
 int hash(char *key) {
-   /* int sum = 0;
+    int sum = 0;
     //Percorre todos os caracteres da string passada
     for (int i = 0; key[i]!=0;i++) {
          //acumulamos os códigos ascii de cada letra com um peso
         sum+=key[i]*(i+1);
     }
-    return sum%MAX;  //retorna o resto da divisão*/
-
-    /*int total = 0;                            //segunda funcao hash
-    for (int i=0; key[i]!='\0'; i++)
-       total += key[i]*(i+3);
-    float A = 0.967341;
-    float val = A * total;
-    val = val - (int) val;
-    return (int) (val * MAX);*/
-
-       unsigned long hash = 5381;
-        int c;
-        while ((c = *key++))
-           hash = c + (hash << 6) + (hash << 16) - hash;               //1*
-           // hash = ((hash << 5) + hash) + c; /* hash * 33 + c */        //2*
-        return hash % MAX;
-
-
+    return sum%glb;  //retorna o resto da divisão*/
 }
 // Verifica se a chave já está contida na tabela.
 // Caso contrário, é inserido um novo elemento na tabela.
@@ -90,7 +87,7 @@ void* removeKey(HashStruct *hashStruct, char *key, compare equal) {
 //Exibe os pares armazenados, ou seja, mostra quantos hash tem e quantos elementos cada hash tem
 void showHashStruct(HashStruct *hashStruct, printNode print) {
     //estrutura de repetição com o intuito de navegar entre as hashes e mostrar quantos elementos cada hash tem
-    for (int i=0; i < MAX; i++) {
+    for (int i=0; i < glb; i++) {
         printf("Hash %d tem %d elementos: ",i,hashStruct->hashes[i].size);
         show(&hashStruct->hashes[i],print);
         printf("\n");
@@ -115,7 +112,7 @@ void imprimeColisoes(HashStruct *hashStruct, printNode print) {
     
     //Navega entre as hashes e mostrar quantos elementos cada hash tem
     printf("\n\t");
-    for (int i=0; i < MAX; i++) 
+    for (int i=0; i < glb; i++) 
         if ((hashStruct->hashes[i].size)>1){
             printf("%d\t",i);
             cont++;
@@ -128,12 +125,13 @@ void imprimeColisoes(HashStruct *hashStruct, printNode print) {
 //Mostra a porcentagem de ocupacao da tabela
 void porcentagemHash(HashStruct *hashStruct){
         float contador = 0.0;
-        for (int i=0; i < MAX; i++) {
+        for (int i=0; i < glb; i++) {
             if(hashStruct->hashes[i].size >= 1){//Caso a hash tenha pelo menos um elemento, o contador é incrementado.
                 contador += 1;
             }
         }
-    printf("\n A PORCENTAGEM DE OCUPACAO FOI DE %.2f%%", (contador/MAX)*100 );//Cálculo da porcentagem e apresentação para o usuário.
+    printf("\n A PORCENTAGEM DE OCUPACAO FOI DE %.2f%%", (contador/glb)*100 );//Cálculo da porcentagem e apresentação para o usuário.
+    printf("\n Variavel global %d",glb);
 }
 //Gera arquivo no formato PPM para visuzalização do espalhamento da hash.
 void mapaEspalhamento(HashStruct *hashStruct){
@@ -152,7 +150,7 @@ void mapaEspalhamento(HashStruct *hashStruct){
     fprintf(imageFile,"P3\n");               // P3 filetype
     fprintf(imageFile,"%d %d\n",larg,alt);   // dimensão da imagem
     fprintf(imageFile,"255\n");              // Máximo de pixel
-    for (int i=0; i < MAX; i++) {
+    for (int i=0; i < glb; i++) {
         //Caso a lista não esteja vazia, é escrito no PPM uma variação de cor conforme a quantidade de elementos.
         if ((hashStruct->hashes[i].size)!= 0){  
             if ((hashStruct->hashes[i].size) >= 1){
@@ -185,10 +183,10 @@ void carregaArquivo(HashStruct *hashStruct,Palavra *t_palavra){
 int raiz_quadrada ()
 {
     int n;
-    float recorre = MAX;
+    float recorre = glb;
    
     for (n = 0; n < 10; ++n)
-          recorre = recorre/2 + MAX/(2*recorre);
+          recorre = recorre/2 + glb/(2*recorre);
            
     return(recorre);    
 }    

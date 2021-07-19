@@ -3,10 +3,14 @@
 #include <string.h>
 #include "Hash.h"
 
+
+
+
 int main() {
     HashStruct hashes;
     Palavra t_palavra;
     int opc;
+    printf("\n%d",lertab());
     while (1)
     {
         printf(" \n\n::::::::::::::::::::: TABELA HASH :::::::::::::::::::::\n\n\n");
