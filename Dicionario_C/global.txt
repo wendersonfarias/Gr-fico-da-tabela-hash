@@ -1,3 +1,0 @@
-https://pt.stackoverflow.com/questions/3690/criando-o-seu-pr%C3%B3prio-header-file
-
-https://www.ti-enxame.com/pt/c/como-eu-uso-extern-para-compartilhar-variaveis-entre-arquivos-de-origem/967137016/
